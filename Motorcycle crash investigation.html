@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Riding Safe: Strategies to Minimize Motorcycle Crash Risks</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Motorcycle crash investigation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Motorcycle crash investigation_files/libs/quarto-html/quarto.js"></script>
+<script src="Motorcycle crash investigation_files/libs/quarto-html/popper.min.js"></script>
+<script src="Motorcycle crash investigation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Motorcycle crash investigation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Motorcycle crash investigation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Motorcycle crash investigation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Motorcycle crash investigation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Motorcycle crash investigation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Motorcycle crash investigation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
+  <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">Variable Selection</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a>
+  <ul>
+  <li><a href="#degree-of-crash" id="toc-degree-of-crash" class="nav-link" data-scroll-target="#degree-of-crash">1. Degree of Crash</a></li>
+  <li><a href="#is-it-always-bike-vs-car" id="toc-is-it-always-bike-vs-car" class="nav-link" data-scroll-target="#is-it-always-bike-vs-car">2. Is it always Bike vs Car?</a></li>
+  <li><a href="#impact-types" id="toc-impact-types" class="nav-link" data-scroll-target="#impact-types">3. Impact types</a></li>
+  <li><a href="#what-causes-the-motorcycle-to-rollover" id="toc-what-causes-the-motorcycle-to-rollover" class="nav-link" data-scroll-target="#what-causes-the-motorcycle-to-rollover">4. What causes the Motorcycle to rollover?</a>
+  <ul class="collapse">
+  <li><a href="#a.-manoeuvre-of-the-motorcycle" id="toc-a.-manoeuvre-of-the-motorcycle" class="nav-link" data-scroll-target="#a.-manoeuvre-of-the-motorcycle">4a. Manoeuvre of the Motorcycle</a></li>
+  <li><a href="#b.-manoeuvre-of-the-other-vehicle-if-it-exists" id="toc-b.-manoeuvre-of-the-other-vehicle-if-it-exists" class="nav-link" data-scroll-target="#b.-manoeuvre-of-the-other-vehicle-if-it-exists">4b. Manoeuvre of the other vehicle if it exists</a></li>
+  <li><a href="#c.-conclusion-for-rollover-cases" id="toc-c.-conclusion-for-rollover-cases" class="nav-link" data-scroll-target="#c.-conclusion-for-rollover-cases">4c. Conclusion for Rollover Cases</a></li>
+  </ul></li>
+  <li><a href="#what-are-the-manoeuvres-of-another-vehicle-if-the-motorcyclist-sustained-serious-injuries" id="toc-what-are-the-manoeuvres-of-another-vehicle-if-the-motorcyclist-sustained-serious-injuries" class="nav-link" data-scroll-target="#what-are-the-manoeuvres-of-another-vehicle-if-the-motorcyclist-sustained-serious-injuries">5. What are the manoeuvres of another vehicle if the motorcyclist sustained serious injuries?</a></li>
+  </ul></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Riding Safe: Strategies to Minimize Motorcycle Crash Risks</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>It’s widely understood that motorcycle riding carries a higher risk of injury compared to driving a car. What steps can motorcyclists take to lessen their chances of getting hurt? Our investigation focuses on the behaviors of road users to uncover possible safety measures.</p>
+<p>Please use the table of contents on the left to navigate quickly.</p>
+</section>
+<section id="data-cleaning" class="level1">
+<h1>Data Cleaning</h1>
+<p>Data is obtained from Data.NSW. There are two data sets. First is “crash_data”, which documents the result of the crash. Second is “traffic_unit_data, which records driving patterns just before the crash for each traffic unit involved.</p>
+<p>We clean column names and inner join the two based on crash_id. We need the traffic_unit_data because it specifies whether a motorcycle is involved in a crash.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>crash_data_raw <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"data/nsw_road_crash_data_2016-2020_crash.xlsx"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>traffic_unit_data_raw <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"data/nsw_road_crash_data_2016-2020_traffic_unit.xlsx"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>crash_data <span class="ot">=</span> crash_data_raw <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>traffic_unit_data <span class="ot">=</span> traffic_unit_data_raw <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="ot">=</span> <span class="fu">merge</span>(crash_data, traffic_unit_data, <span class="at">by =</span> <span class="st">"crash_id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Let’s examine the proportion of data missing.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>missing_data_vector <span class="ot">=</span> <span class="fu">sapply</span>(merged_dataset, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)) <span class="sc">/</span> <span class="fu">length</span>(x))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>missing_data_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">column =</span> <span class="fu">names</span>(merged_dataset), </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">missing_proportion =</span> missing_data_vector,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>missing_data_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(missing_proportion <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(missing_proportion)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Missing Data Proportions"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">column =</span> <span class="st">"Column"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_proportion =</span> <span class="st">"Missing Proportion"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_percent</span>(missing_proportion, <span class="at">decimals =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="rwzkpwiphl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rwzkpwiphl table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#rwzkpwiphl thead, #rwzkpwiphl tbody, #rwzkpwiphl tfoot, #rwzkpwiphl tr, #rwzkpwiphl td, #rwzkpwiphl th {
+  border-style: none;
+}
+
+#rwzkpwiphl p {
+  margin: 0;
+  padding: 0;
+}
+
+#rwzkpwiphl .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rwzkpwiphl .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rwzkpwiphl .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rwzkpwiphl .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rwzkpwiphl .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rwzkpwiphl .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rwzkpwiphl .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rwzkpwiphl .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rwzkpwiphl .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#rwzkpwiphl .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rwzkpwiphl .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rwzkpwiphl .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rwzkpwiphl .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rwzkpwiphl .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rwzkpwiphl .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rwzkpwiphl .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rwzkpwiphl .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rwzkpwiphl .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#rwzkpwiphl .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rwzkpwiphl .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rwzkpwiphl .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rwzkpwiphl .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rwzkpwiphl .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rwzkpwiphl .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rwzkpwiphl .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rwzkpwiphl .gt_left {
+  text-align: left;
+}
+
+#rwzkpwiphl .gt_center {
+  text-align: center;
+}
+
+#rwzkpwiphl .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rwzkpwiphl .gt_font_normal {
+  font-weight: normal;
+}
+
+#rwzkpwiphl .gt_font_bold {
+  font-weight: bold;
+}
+
+#rwzkpwiphl .gt_font_italic {
+  font-style: italic;
+}
+
+#rwzkpwiphl .gt_super {
+  font-size: 65%;
+}
+
+#rwzkpwiphl .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#rwzkpwiphl .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rwzkpwiphl .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rwzkpwiphl .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rwzkpwiphl .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rwzkpwiphl .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rwzkpwiphl .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Missing Data Proportions</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="Column" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Column</th>
+<th id="Missing Proportion" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Missing Proportion</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="column">primary_hazardous_feature</td>
+<td class="gt_row gt_right" headers="missing_proportion">98.8%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="column">primary_temporary_feature</td>
+<td class="gt_row gt_right" headers="missing_proportion">98.5%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="column">object_hit_2</td>
+<td class="gt_row gt_right" headers="missing_proportion">97.4%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="column">dca_supplement</td>
+<td class="gt_row gt_right" headers="missing_proportion">92.6%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="column">object_hit_1</td>
+<td class="gt_row gt_right" headers="missing_proportion">86.8%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="column">primary_permanent_feature</td>
+<td class="gt_row gt_right" headers="missing_proportion">79.1%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="column">route_no</td>
+<td class="gt_row gt_right" headers="missing_proportion">33.6%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="column">other_tu_type</td>
+<td class="gt_row gt_right" headers="missing_proportion">15.6%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Now let’s examine the proportion of column that is marked as “Unknown”.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>motor_data <span class="ot">=</span> merged_dataset <span class="sc">%&gt;%</span> <span class="fu">select</span>(tu_type_group)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>motor_data <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> tu_type_group) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Other or Unknown consists of a tiny proportion of the tu_type_group column, meaning for most crash data points, there is a label for the vehicle type. Hence, we can safely exclude the unknown data and use this data set to analyse accidents grouped by vehicle type.</p>
+</section>
+<section id="variable-selection" class="level1">
+<h1>Variable Selection</h1>
+<p>Selected “tu_type_group” (tu: traffic_unit), “degree_of_crash”, “time_of_crash_two_hour_intervals”, “alignment”, “rum_code” (RUM), “DCA”, “manoeuvre”, “street_type”, “crash_id”</p>
+<p>We can see that columns with missing data are not used, so missing data is not a concern in this investigation.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="ot">=</span> merged_dataset <span class="sc">%&gt;%</span> <span class="fu">select</span>(crash_id, tu_type_group, degree_of_crash_detailed, time_of_crash_two_hour_intervals, alignment, rum_code, rum_description, street_type, manoeuvre, first_impact_type, dca_code, dca_description)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualization" class="level1">
+<h1>Visualization</h1>
+<section id="degree-of-crash" class="level2">
+<h2 class="anchored" data-anchor-id="degree-of-crash">1. Degree of Crash</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> degree_of_crash_detailed) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Fatal"</span>, <span class="st">"Minor/Other Injury"</span>, <span class="st">"Moderate Injury"</span>, <span class="st">"Serious Injury"</span>, <span class="st">"Non-casualty (towaway)"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note: The degree of crash is the most severe injury happened in the crash. It could be the driver/ passenger inside the car, or a pedestrian who got hit by the bike or etc.</p>
+<p>If crashes, then serious injury is most likely to follow.</p>
+</section>
+<section id="is-it-always-bike-vs-car" class="level2">
+<h2 class="anchored" data-anchor-id="is-it-always-bike-vs-car">2. Is it always Bike vs Car?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>vehicle_to_vehicle_impact_type <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Head-on"</span>, <span class="st">"Other angle"</span>, <span class="st">"Rear end"</span>, <span class="st">"Right angle"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">impact_type =</span> <span class="fu">c</span>(<span class="st">"Motorcycle to vehicle impact"</span>, <span class="st">"Motorcycle to non vehicle impact"</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">n =</span> <span class="fu">c</span>(merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(first_impact_type) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(first_impact_type <span class="sc">%in%</span> vehicle_to_vehicle_impact_type) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(n) <span class="sc">%&gt;%</span> <span class="fu">sum</span>(), merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(first_impact_type) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(first_impact_type <span class="sc">%in%</span> vehicle_to_vehicle_impact_type)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(n) <span class="sc">%&gt;%</span> <span class="fu">sum</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> impact_type, <span class="at">y =</span> n, <span class="at">label =</span> n) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="fl">0.5</span>), <span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Motorcycles are 40% more likely to crash with another vehicle than crash with non-vehicles.</p>
+</section>
+<section id="impact-types" class="level2">
+<h2 class="anchored" data-anchor-id="impact-types">3. Impact types</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(first_impact_type) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> first_impact_type) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.83</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Other angle and Rollover made up the most crash.</p>
+</section>
+<section id="what-causes-the-motorcycle-to-rollover" class="level2">
+<h2 class="anchored" data-anchor-id="what-causes-the-motorcycle-to-rollover">4. What causes the Motorcycle to rollover?</h2>
+<section id="a.-manoeuvre-of-the-motorcycle" class="level3">
+<h3 class="anchored" data-anchor-id="a.-manoeuvre-of-the-motorcycle">4a. Manoeuvre of the Motorcycle</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span> <span class="sc">&amp;</span> first_impact_type <span class="sc">==</span> <span class="st">"Rollover"</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> manoeuvre) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Proceeding in lane then rollovered happened to most cases.</p>
+</section>
+<section id="b.-manoeuvre-of-the-other-vehicle-if-it-exists" class="level3">
+<h3 class="anchored" data-anchor-id="b.-manoeuvre-of-the-other-vehicle-if-it-exists">4b. Manoeuvre of the other vehicle if it exists</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(crash_id <span class="sc">%in%</span> <span class="fu">c</span>(merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span> <span class="sc">&amp;</span> first_impact_type <span class="sc">==</span> <span class="st">"Rollover"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(crash_id))) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> manoeuvre) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The other vehicle is mostly proceeding in lane, parked, turning right or stationary.</p>
+<p><strong>Motorcycle</strong> DCA visualization if another vehicle is involved</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(crash_id <span class="sc">%in%</span> <span class="fu">c</span>(merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span> <span class="sc">&amp;</span> first_impact_type <span class="sc">==</span> <span class="st">"Rollover"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(crash_id))) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> dca_description) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Motorcycle</strong> DCA visualization if no other vehicle is involved</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(crash_id <span class="sc">%in%</span> <span class="fu">c</span>(merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span> <span class="sc">&amp;</span> first_impact_type <span class="sc">==</span> <span class="st">"Rollover"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(crash_id))) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(<span class="fu">duplicated</span>(crash_id))) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> dca_description) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="c.-conclusion-for-rollover-cases" class="level3">
+<h3 class="anchored" data-anchor-id="c.-conclusion-for-rollover-cases">4c. Conclusion for Rollover Cases</h3>
+<p>Motorcycle Out of control on bend, on carriage way and during overtaking are the causes of most Rollover Cases.</p>
+<p>Besides that, Motorcycle hitting a parked or stationary vehicle are commonly lead to Rollover.</p>
+<p>If the other vehicle is moving other than driving straight, then turning right possess a risk to motorcycle roll over accidents.</p>
+</section>
+</section>
+<section id="what-are-the-manoeuvres-of-another-vehicle-if-the-motorcyclist-sustained-serious-injuries" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-manoeuvres-of-another-vehicle-if-the-motorcyclist-sustained-serious-injuries">5. What are the manoeuvres of another vehicle if the motorcyclist sustained serious injuries?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(crash_id <span class="sc">%in%</span> <span class="fu">c</span>(merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span> <span class="sc">&amp;</span> degree_of_crash_detailed <span class="sc">==</span> <span class="st">"Serious Injury"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(crash_id))) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">!=</span> <span class="st">"Motorcycle"</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(manoeuvre) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> manoeuvre, <span class="at">y =</span> n) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">1.05</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vehicle DCA if another vehicle is involved.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(crash_id <span class="sc">%in%</span> <span class="fu">c</span>(merged_dataset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span> <span class="sc">&amp;</span> degree_of_crash_detailed <span class="sc">==</span> <span class="st">"Serious Injury"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(crash_id))) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(tu_type_group <span class="sc">==</span> <span class="st">"Motorcycle"</span>)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dca_description) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> dca_description, <span class="at">y =</span> n) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Motorcycle-crash-investigation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>By comparing Vehicle DCA and last manoeuvre, we can see that a car turning right or rear ending a motorcycle strongly correlates to severe injuries.</p>
+</section>
+</section>
+<section id="recommendations" class="level1">
+<h1>Recommendations</h1>
+<p>A motorcyclist can do the following to reduce the risk of crash:</p>
+<p><strong>First, always lane filter</strong>. Lane filtering is legal in NSW if the traffic is slow-moving or stopped, and the motorcyclist is travelling below 30 km/h. Motorcyclist can significantly reduce the risk of being rear ended by a car by lane filtering to the top the queue where cars are stopped already. The legislation forbids lane filtering adjacent to parked vehicles or large trucks, adherence to which can minimize the likelihood of rollovers.</p>
+<p><strong>Second, if the opposing traffic is indicating to turn right or turning right, slow down</strong>. Data indicate that vehicles making right turns are frequently involved in severe injury incidents. When navigating an intersection with numerous parked cars blocking the view, it’s advisable to reduce speed to prevent unexpected encounters.</p>
+<p><strong>Third, do not ride with overconfidence</strong>. Most roll over crashes happened with loss of control. Weather and many other unpredictable factors can lead to roll overs.</p>
+<p>Fourth, motorcycle hitting a road object causes many crashes. To prevent such incidents, riders should <strong>abstain from consuming alcohol</strong> and consider <strong>enhancing lighting or reducing speed during nighttime</strong>.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
